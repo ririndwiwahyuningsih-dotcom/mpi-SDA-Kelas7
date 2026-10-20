@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEMANFAATAN DAN PELESTARIAN SUMBER DAYA - IPS Kelas VII SMP Negeri 1 Wadaslintang</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#16a34a',
+                            600: '#15803d',
+                            700: '#116530',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .avatar-float {
+            animation: float 3.5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-7px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 6px;
+        }
+
+        .drop-zone {
+            transition: all 0.2s ease;
+        }
+        .drop-zone.drag-over {
+            border-color: #16a34a;
+            background-color: #dcfce7;
+            transform: scale(1.02);
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col justify-between selection:bg-emerald-200 selection:text-emerald-900">
+
+    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & School Badge -->
+                <div onclick="navigateTo('landing')" class="flex items-center gap-3 cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-emerald-500/20">
+                        <i class="fa-solid fa-tree"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-sm sm:text-base text-slate-800 leading-tight">PEMANFAATAN & PELESTARIAN SD</h1>
+                        <p class="text-xs text-emerald-600 font-semibold">SMP Negeri 1 Wadaslintang</p>
+                    </div>
+                </div>
+
+                <!-- Breadcrumb / Current Location Tag -->
+                <div class="hidden sm:flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 text-xs text-slate-600">
+                    <i class="fa-solid fa-location-dot text-emerald-500"></i>
+                    <span id="current-location-tag" class="font-semibold text-slate-700">Halaman Utama</span>
+                </div>
+
+                <!-- Sound Control & Back to Menu Button -->
+                <div class="flex items-center gap-2">
+                    <button id="btn-main-menu" onclick="navigateTo('menu')" class="hidden px-3.5 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 text-xs font-bold transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-grid-2"></i> Menu Utama
+                    </button>
+                    <button id="audio-toggle" onclick="toggleAudio()" class="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-all border border-slate-200" title="Suara ON/OFF">
+                        <i class="fa-solid fa-volume-high text-emerald-600"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- ================= HALAMAN 1: LANDING & PETUNJUK ================= -->
+        <section id="view-landing" class="space-y-8 animate-fadeIn">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-center gap-8 border border-emerald-500/30">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                
+                <div class="flex-1 z-10 space-y-4 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold border border-white/30 text-emerald-100">
+                        <i class="fa-solid fa-graduation-cap text-amber-300"></i> IPS Kelas VII • SMP Negeri 1 Wadaslintang
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                        PEMANFAATAN DAN PELESTARIAN SUMBER DAYA ALAM
+                    </h1>
+                    <p class="text-emerald-100 text-sm sm:text-base leading-relaxed max-w-2xl">
+                        Media Pembelajaran Interaktif untuk memahami potensi **Sumber Daya Alam**, ancaman kelangkaan, serta aksi nyata **Pelestarian Lingkungan** untuk pembangunan berkelanjutan.
+                    </p>
+
+                    <div class="pt-3">
+                        <button onclick="navigateTo('menu')" class="w-full sm:w-auto px-8 py-4 bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold text-base rounded-2xl shadow-xl shadow-amber-500/30 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-circle-play text-xl"></i> MULAI BELAJAR
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mascot Bu Ririn Vector (Hijab, No Glasses, Friendly Teacher) -->
+                <div class="z-10 flex flex-col items-center justify-center shrink-0">
+                    <div class="relative avatar-float">
+                        <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-white/20 border-4 border-white/40 p-2 shadow-2xl backdrop-blur-md flex items-center justify-center">
+                            <svg class="w-full h-full" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="100" cy="100" r="95" fill="#dcfce7" />
+                                <!-- Hijab Back -->
+                                <path d="M40 120 C 35 170, 165 170, 160 120 C 160 80, 140 35, 100 35 C 60 35, 40 80, 40 120 Z" fill="#15803d" />
+                                <!-- Face -->
+                                <path d="M65 90 C 65 65, 135 65, 135 90 C 135 125, 65 125, 65 90 Z" fill="#fcd34d" />
+                                <!-- Inner Hijab Frame -->
+                                <path d="M63 85 C 63 60, 137 60, 137 85 C 137 100, 130 115, 100 118 C 70 115, 63 100, 63 85 Z" fill="none" stroke="#116530" stroke-width="4" />
+                                <path d="M65 75 C 75 62, 125 62, 135 75 C 120 80, 80 80, 65 75 Z" fill="#116530" />
+                                <!-- Cheeks -->
+                                <circle cx="78" cy="100" r="7" fill="#f87171" opacity="0.4" />
+                                <circle cx="122" cy="100" r="7" fill="#f87171" opacity="0.4" />
+                                <!-- Eyes (Warm & Friendly, NO Glasses) -->
+                                <ellipse cx="82" cy="92" rx="4.5" ry="6.5" fill="#1e293b" />
+                                <ellipse cx="118" cy="92" rx="4.5" ry="6.5" fill="#1e293b" />
+                                <circle cx="80" cy="90" r="1.5" fill="#ffffff" />
+                                <circle cx="116" cy="90" r="1.5" fill="#ffffff" />
+                                <!-- Eyebrows -->
+                                <path d="M74 82 Q 81 79 88 83" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+                                <path d="M112 83 Q 119 79 126 82" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" />
+                                <!-- Smile -->
+                                <path d="M88 106 Q 100 116 112 106" fill="none" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" />
+                                <!-- Hijab Front Clothes -->
+                                <path d="M35 170 C 50 135, 75 125, 100 135 C 125 125, 150 135, 165 170 C 140 195, 60 195, 35 170 Z" fill="#16a34a" />
+                                <path d="M80 145 L100 170 L120 145" fill="none" stroke="#86efac" stroke-width="3" />
+                                <circle cx="125" cy="155" r="5" fill="#fbbf24" />
+                            </svg>
+                        </div>
+                        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 font-extrabold text-xs px-3.5 py-1 rounded-full shadow-md whitespace-nowrap border border-amber-300 flex items-center gap-1.5">
+                            <i class="fa-solid fa-chalkboard-user"></i> Bu Ririn
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Petunjuk Penggunaan Box -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-extrabold text-slate-800 text-base sm:text-lg">Petunjuk Penggunaan Media Pembelajaran</h2>
+                        <p class="text-xs text-slate-500">Ikuti langkah-langkah di bawah untuk belajar secara optimal bersama Bu Ririn:</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2">
+                        <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-black text-xs flex items-center justify-center">1</div>
+                        <h3 class="font-bold text-slate-800 text-xs sm:text-sm">Tujuan Pembelajaran</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">Pahami target pembelajaran IPS mengenai potensi, ancaman kelangkaan, dan pelestarian SDA.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2">
+                        <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-black text-xs flex items-center justify-center">2</div>
+                        <h3 class="font-bold text-slate-800 text-xs sm:text-sm">Pelajari Materi</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">Pahami klasifikasi SDA, dampak kerusakan lingkungan, serta aksi pelestarian alam.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2">
+                        <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-black text-xs flex items-center justify-center">3</div>
+                        <h3 class="font-bold text-slate-800 text-xs sm:text-sm">Mainkan Game</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">Uji kejelianmu mengelompokkan jenis SDA dan tindakan pelestarian dalam game interaktif.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2">
+                        <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-black text-xs flex items-center justify-center">4</div>
+                        <h3 class="font-bold text-slate-800 text-xs sm:text-sm">Asesmen Formatif</h3>
+                        <p class="text-slate-500 text-xs leading-relaxed">Kerjakan 15 soal tes online berbasis AKM sesuai tujuan pembelajaran, lalu kirim hasil ke Bu Ririn.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= HALAMAN 2: MENU UTAMA ================= -->
+        <section id="view-menu" class="hidden space-y-6 animate-fadeIn">
+            <!-- Speech Dialog Bu Ririn -->
+            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full bg-emerald-100 shrink-0 flex items-center justify-center text-emerald-600 font-bold text-xl">
+                    <i class="fa-solid fa-comment-dots"></i>
+                </div>
+                <div>
+                    <h2 class="font-bold text-slate-800 text-base mb-1">Sapaan Bu Ririn:</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        "Selamat datang di **Menu Utama**, anak-anak kelas VII SMP Negeri 1 Wadaslintang! Mari kita pelajari bagaimana memanfaatkan kekayaan alam Indonesia secara bijak sekaligus menjaganya agar tetap lestari untuk generasi mendatang."
+                    </p>
+                </div>
+            </div>
+
+            <!-- 4 Navigation Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1: Tujuan Pembelajaran -->
+                <div onclick="navigateTo('tujuan')" class="bg-white rounded-3xl p-6 border-2 border-slate-200/80 shadow-sm hover:shadow-md hover:border-emerald-400 transition-all cursor-pointer group flex items-start gap-5">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl font-bold shrink-0 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-slate-800 text-lg group-hover:text-emerald-600 transition-colors">1. Tujuan Pembelajaran</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1 leading-relaxed">
+                            Capaian Pembelajaran (CP) dan Indikator Pemanfaatan serta Pelestarian Sumber Daya Alam IPS VII.
+                        </p>
+                        <span class="inline-flex items-center gap-1.5 text-xs font-extrabold text-emerald-600 mt-3">
+                            Buka Tujuan <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Materi -->
+                <div onclick="navigateTo('materi')" class="bg-white rounded-3xl p-6 border-2 border-slate-200/80 shadow-sm hover:shadow-md hover:border-teal-400 transition-all cursor-pointer group flex items-start gap-5">
+                    <div class="w-14 h-14 rounded-2xl bg-teal-100 text-teal-600 flex items-center justify-center text-2xl font-bold shrink-0 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-slate-800 text-lg group-hover:text-teal-600 transition-colors">2. Materi Pembelajaran</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1 leading-relaxed">
+                            Pelajari Rangkuman Interaktif: Jenis SDA, Potensi & Ancaman Kelangkaan, serta Upaya Pelestarian.
+                        </p>
+                        <span class="inline-flex items-center gap-1.5 text-xs font-extrabold text-teal-600 mt-3">
+                            Pelajari Materi <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Game Menarik -->
+                <div onclick="navigateTo('game')" class="bg-white rounded-3xl p-6 border-2 border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400 transition-all cursor-pointer group flex items-start gap-5">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl font-bold shrink-0 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-slate-800 text-lg group-hover:text-amber-600 transition-colors">3. Game Menarik</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1 leading-relaxed">
+                            Mainkan Game Sortir Sumber Daya & Pelestarian! Kelompokkan setiap kartu ke kategori yang tepat.
+                        </p>
+                        <span class="inline-flex items-center gap-1.5 text-xs font-extrabold text-amber-600 mt-3">
+                            Mainkan Game <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Asesmen Formatif -->
+                <div onclick="navigateTo('asesmen')" class="bg-white rounded-3xl p-6 border-2 border-slate-200/80 shadow-sm hover:shadow-md hover:border-indigo-400 transition-all cursor-pointer group flex items-start gap-5">
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-2xl font-bold shrink-0 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-slate-800 text-lg group-hover:text-indigo-600 transition-colors">4. Asesmen Formatif</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1 leading-relaxed">
+                            Tes Online 15 Soal Berbasis AKM dengan pelaporan hasil otomatis ke Bu Ririn via WhatsApp.
+                        </p>
+                        <span class="inline-flex items-center gap-1.5 text-xs font-extrabold text-indigo-600 mt-3">
+                            Mulai Asesmen <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE: TUJUAN PEMBELAJARAN ================= -->
+        <section id="view-tujuan" class="hidden space-y-6 animate-fadeIn">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xl">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-extrabold text-slate-800">Tujuan Pembelajaran</h2>
+                            <p class="text-xs text-slate-500">Mata Pelajaran IPS Kelas VII - Kurikulum Merdeka</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="space-y-4 text-sm text-slate-700">
+                    <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-100 space-y-2">
+                        <h3 class="font-bold text-emerald-900 flex items-center gap-2">
+                            <i class="fa-solid fa-award text-amber-500"></i> Capaian Pembelajaran (CP)
+                        </h3>
+                        <p class="text-xs sm:text-sm text-emerald-800 leading-relaxed">
+                            Peserta didik mampu mengidentifikasi keberagaman potensi sumber daya alam Indonesia, menganalisis faktor penyebab kerusakan dan kelangkaan sumber daya, serta merumuskan upaya pemanfaatan dan pelestarian lingkungan hidup secara bijak demi pembangunan berkelanjutan (*sustainable development*).
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-emerald-600"></i> Indikator Ketercapaian Tujuan Pembelajaran (IKTP):
+                        </h3>
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-600 list-none pl-1">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                                <span>Mengklasifikasikan jenis-jenis Sumber Daya Alam (dapat diperbarui dan tidak dapat diperbarui) serta pemanfaatannya dalam kehidupan masyarakat.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                                <span>Menganalisis dampak eksploitasi berlebihan terhadap lingkungan hidup, termasuk kasus erosi, pembalakan liar, dan pencemaran air/tanah.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                                <span>Mengusulkan ragam langkah nyata pelestarian alam (seperti 3R, reboisasi, bio pori, konservasi waduk/hutan) di lingkungan lokal Wadaslintang.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                                <span>Memecahkan masalah kontekstual melalui Asesmen Formatif berbasis Asesmen Kompetensi Minimum (AKM).</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pt-2 flex justify-end">
+                    <button onclick="navigateTo('materi')" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl text-xs transition-all shadow-md flex items-center gap-2">
+                        Lanjut ke Materi <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE: MATERI ================= -->
+        <section id="view-materi" class="hidden space-y-6 animate-fadeIn">
+            <!-- Header Materi & Navigation Tabs -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-black text-slate-800">Materi: Pemanfaatan & Pelestarian Sumber Daya</h2>
+                    <p class="text-slate-500 text-xs sm:text-sm">Pilih tab di bawah untuk memelajari 3 bagian utama materi:</p>
+                </div>
+                
+                <div class="flex bg-slate-100 p-1.5 rounded-2xl w-full md:w-auto border border-slate-200">
+                    <button onclick="switchMateriTab('pemanfaatan')" id="subtab-pemanfaatan" class="flex-1 md:flex-none px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-sm transition-all">1. Pemanfaatan SDA</button>
+                    <button onclick="switchMateriTab('ancaman')" id="subtab-ancaman" class="flex-1 md:flex-none px-4 py-2 rounded-xl text-xs font-bold text-slate-600 transition-all">2. Ancaman & Kelangkaan</button>
+                    <button onclick="switchMateriTab('pelestarian')" id="subtab-pelestarian" class="flex-1 md:flex-none px-4 py-2 rounded-xl text-xs font-bold text-slate-600 transition-all">3. Upaya Pelestarian</button>
+                </div>
+            </div>
+
+            <!-- SUB-MATERI 1: PEMANFAATAN SDA -->
+            <div id="materi-pemanfaatan" class="space-y-6">
+                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xl">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-lg text-slate-800">1. Potensi dan Pemanfaatan Sumber Daya Alam</h3>
+                            <p class="text-xs text-slate-500">Pengelompokan: <span class="font-bold text-emerald-600">SDA DAPAT DIPERBARUI & TIDAK DAPAT DIPERBARUI</span></p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                        <div class="space-y-3 text-slate-600 text-xs sm:text-sm leading-relaxed">
+                            <p>
+                                <strong class="text-slate-800">Pengertian:</strong> Sumber Daya Alam (SDA) adalah segala sesuatu yang berasal dari alam dan dapat digunakan manusia untuk memenuhi kebutuhan hidup.
+                            </p>
+                            <p><strong class="text-slate-800">Jenis Pemanfaatan SDA Utama:</strong></p>
+                            <ul class="list-disc list-inside space-y-1 pl-2 text-slate-600">
+                                <li><strong class="text-slate-700">SDA Hutan & Pertanian:</strong> Menyediakan kayu, beras, sayuran, dan oksigen bersih.</li>
+                                <li><strong class="text-slate-700">SDA Air:</strong> Untuk minum, irigasi sawah, perikanan, serta Pembangkit Listrik Tenaga Air (PLTA Waduk Wadaslintang).</li>
+                                <li><strong class="text-slate-700">SDA Tambang:</strong> Minyak bumi, gas alam, emas, tembaga, dan batu bara untuk energi & industri.</li>
+                            </ul>
+                            
+                            <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 text-emerald-800 text-xs flex items-center gap-3">
+                                <span class="text-2xl">👩‍🏫</span>
+                                <div>
+                                    <strong>Pesan Bu Ririn:</strong> "Di daerah kita Wadaslintang, Waduk Wadaslintang merupakan contoh nyata pemanfaatan SDA air yang luar biasa untuk perikanan, irigasi, rekreasi, hingga daya listrik!"
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Visual Jenis SDA -->
+                        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-3xl border border-emerald-100 text-center space-y-3">
+                            <div class="text-4xl">🌾 💧 🌲 🛢️</div>
+                            <h4 class="font-bold text-slate-800 text-xs sm:text-sm">Klasifikasi Sifat Sumber Daya Alam</h4>
+                            <div class="grid grid-cols-2 gap-2.5 text-xs text-left">
+                                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100">
+                                    <div class="font-extrabold text-emerald-600">Dapat Diperbarui</div>
+                                    <div class="text-slate-500 text-[11px] mt-0.5">Air, Tanah, Hutan, Hewan, Tumbuhan, Sinar Matahari</div>
+                                </div>
+                                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100">
+                                    <div class="font-extrabold text-amber-600">Tidak Dapat Diperbarui</div>
+                                    <div class="text-slate-500 text-[11px] mt-0.5">Minyak Bumi, Batu Bara, Gas Alam, Biji Besi, Emas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-MATERI 2: ANCAMAN & KELANGKAAN -->
+            <div id="materi-ancaman" class="hidden space-y-6">
+                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xl">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-lg text-slate-800">2. Ancaman Kerusakan & Kelangkaan SDA</h3>
+                            <p class="text-xs text-slate-500">Penyebab: <span class="font-bold text-amber-600">EKSPLOITASI BERLEBIHAN & PERILAKU MANUSIA</span></p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                        <div class="space-y-3 text-slate-600 text-xs sm:text-sm leading-relaxed">
+                            <p>
+                                <strong class="text-slate-800">Pengertian Kelangkaan:</strong> Kondisi ketika jumlah kebutuhan manusia terus meningkat, sedangkan keberadaan sumber daya alam sangat terbatas atau semakin rusak.
+                            </p>
+                            <p><strong class="text-slate-800">Faktor Kerusakan Lingkungan:</strong></p>
+                            <ul class="list-disc list-inside space-y-1.5 pl-2 text-slate-600">
+                                <li><strong class="text-slate-700">Pembalakan Liar (*Illegal Logging*):</strong> Penggundulan hutan memicu banjir, erosi, dan hilangnya habitat flora-fauna.</li>
+                                <li><strong class="text-slate-700">Pencemaran Limbah:</strong> Pembuangan sampah plastik dan limbah cair merusak sumber air dan tanah.</li>
+                                <li><strong class="text-slate-700">Pengolahan Lahan Miring Salah:</strong> Pertanian di lereng bukit tanpa terasering memicu tanah longsor.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Card Visual Dampak -->
+                        <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-3xl border border-amber-100 text-center space-y-3">
+                            <div class="text-4xl">⚠️ 💨 🚯 🪵</div>
+                            <h4 class="font-bold text-slate-800 text-xs sm:text-sm">Rantai Dampak Kerusakan Lingkungan</h4>
+                            <div class="space-y-2 text-xs">
+                                <div class="bg-white p-3 rounded-2xl shadow-sm border border-amber-100 flex items-center justify-between font-semibold">
+                                    <span>Hutan Gundul</span>
+                                    <i class="fa-solid fa-arrow-right text-amber-500"></i>
+                                    <span>Resapan Air Hilang</span>
+                                    <i class="fa-solid fa-arrow-right text-amber-500"></i>
+                                    <span>Banjir & Longsor</span>
+                                </div>
+                                <div class="bg-white p-3 rounded-2xl shadow-sm border border-amber-100 flex items-center justify-between font-semibold">
+                                    <span>Sampah Plastik Sembarangan</span>
+                                    <i class="fa-solid fa-arrow-right text-amber-500"></i>
+                                    <span>Sungai Tercemar</span>
+                                    <i class="fa-solid fa-arrow-right text-amber-500"></i>
+                                    <span>Ikan Mati & Air Kena Kaporit</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-MATERI 3: UPAYA PELESTARIAN -->
+            <div id="materi-pelestarian" class="hidden space-y-6">
+                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-teal-100 text-teal-600 flex items-center justify-center font-bold text-xl">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-lg text-slate-800">3. Upaya Pelestarian & Pembangunan Berkelanjutan</h3>
+                            <p class="text-xs text-slate-500">Tujuan: <span class="font-bold text-teal-600">MENGJAGA KELESTARIAN UNTUK GENERASI MENDATANG</span></p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                        <div class="space-y-3 text-slate-600 text-xs sm:text-sm leading-relaxed">
+                            <p>
+                                <strong class="text-slate-800">Pembangunan Berkelanjutan:</strong> Pemanfaatan sumber daya alam untuk memenuhi kebutuhan saat ini tanpa mengorbankan hak generasi mendatang.
+                            </p>
+                            <p><strong class="text-slate-800">Aksi Nyata Pelestarian Lingkungan:</strong></p>
+                            <ul class="list-disc list-inside space-y-1 pl-2 text-slate-600">
+                                <li><strong class="text-slate-700">Reboisasi & Tebang Pilih:</strong> Menanam kembali pohon di hutan gundul dan memotong kayu tua saja.</li>
+                                <li><strong class="text-slate-700">Prinsip 3R (Reduce, Reuse, Recycle):</strong> Mengurangi sampah, menggunakan kembali, dan mendaur ulang.</li>
+                                <li><strong class="text-slate-700">Pembuatan Terasering & Biopori:</strong> Menahan erosi bukit miring serta memperbanyak resapan air hujan.</li>
+                                <li><strong class="text-slate-700">Energi Terbarukan:</strong> Beralih ke tenaga surya, angin, dan air.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Card Visual Pelestarian -->
+                        <div class="bg-gradient-to-br from-teal-50 to-emerald-50 p-6 rounded-3xl border border-teal-100 text-center space-y-3">
+                            <div class="text-4xl">🌱 ♻️ 🏞️ ☀️</div>
+                            <h4 class="font-bold text-slate-800 text-xs sm:text-sm">Prinsip Pelestarian Alam</h4>
+                            <p class="text-xs text-slate-500">Mari mulai dari tindakan kecil di rumah dan sekolah!</p>
+                            <div class="bg-white p-3.5 rounded-2xl border border-teal-200 text-xs font-bold text-teal-900 shadow-sm">
+                                💡 Tip Bu Ririn: Matikan kran air setelah dipakai, hemat listrik, dan selalu buang sampah pada tempatnya!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE: GAME MENARIK ================= -->
+        <section id="view-game" class="hidden space-y-6 animate-fadeIn">
+            <!-- Game Header Bar -->
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-3xl p-6 text-white shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-black flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad text-amber-300"></i> Game Sortir Sumber Daya & Pelestarian
+                    </h2>
+                    <p class="text-emerald-100 text-xs sm:text-sm mt-1">Seret (drag) atau klik setiap kartu di bawah lalu masukkan ke kotak kategori yang tepat!</p>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-2xl text-center border border-white/30">
+                        <span class="text-[11px] text-emerald-100 block font-semibold">Skor Game</span>
+                        <span id="game-score" class="text-2xl font-black text-amber-300">0</span>
+                    </div>
+                    <button onclick="resetGame()" class="px-4 py-2.5 bg-white text-emerald-700 hover:bg-emerald-50 font-extrabold rounded-2xl text-xs transition-all shadow-md">
+                        <i class="fa-solid fa-rotate-right"></i> Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pool Item yang Belum Disortir -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-extrabold text-slate-800 text-xs sm:text-sm">Kartu Pernyataan (Tarik / Klik Untuk Mengelompokkan):</h3>
+                    <span id="items-left-count" class="text-xs font-bold px-3 py-1 bg-slate-100 text-slate-600 rounded-full">Sisa: 6 Item</span>
+                </div>
+
+                <div id="item-pool" class="flex flex-wrap gap-3 min-h-[90px] p-4 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 items-center justify-center">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- 3 Target Drop Zones -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Zone SDA Diperbarui -->
+                <div id="zone-diperbarui" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'diperbarui')" class="drop-zone bg-white border-2 border-emerald-200 rounded-3xl p-5 min-h-[220px] flex flex-col">
+                    <div class="flex items-center gap-2 pb-3 border-b border-emerald-100 text-emerald-700 font-black text-sm">
+                        <i class="fa-solid fa-arrows-rotate text-lg"></i>
+                        <span>SDA DAPAT DIPERBARUI</span>
+                    </div>
+                    <div class="drop-contents space-y-2 mt-3 flex-grow"></div>
+                </div>
+
+                <!-- Zone SDA Tidak Diperbarui -->
+                <div id="zone-tidak_diperbarui" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'tidak_diperbarui')" class="drop-zone bg-white border-2 border-amber-200 rounded-3xl p-5 min-h-[220px] flex flex-col">
+                    <div class="flex items-center gap-2 pb-3 border-b border-amber-100 text-amber-700 font-black text-sm">
+                        <i class="fa-solid fa-gas-pump text-lg"></i>
+                        <span>SDA TIDAK DIPERBARUI</span>
+                    </div>
+                    <div class="drop-contents space-y-2 mt-3 flex-grow"></div>
+                </div>
+
+                <!-- Zone Upaya Pelestarian -->
+                <div id="zone-pelestarian" ondragover="allowDrop(event)" ondrop="handleDrop(event, 'pelestarian')" class="drop-zone bg-white border-2 border-teal-200 rounded-3xl p-5 min-h-[220px] flex flex-col">
+                    <div class="flex items-center gap-2 pb-3 border-b border-teal-100 text-teal-700 font-black text-sm">
+                        <i class="fa-solid fa-hand-holding-seeding text-lg"></i>
+                        <span>UPAYA PELESTARIAN</span>
+                    </div>
+                    <div class="drop-contents space-y-2 mt-3 flex-grow"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE: ASESMEN FORMATIF (AKM ONLINE) ================= -->
+        <section id="view-asesmen" class="hidden space-y-6 animate-fadeIn">
+
+            <!-- SCREEN 1: START SCREEN (Identitas Murid) -->
+            <div id="asesmen-start-screen" class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-md text-center max-w-2xl mx-auto space-y-6">
+                <div class="w-20 h-20 bg-emerald-100 rounded-3xl text-emerald-600 flex items-center justify-center text-3xl mx-auto shadow-inner">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+                
+                <div>
+                    <h2 class="text-2xl font-black text-slate-800">Asesmen Formatif Online (AKM)</h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">IPS Kelas VII • SMP Negeri 1 Wadaslintang</p>
+                </div>
+
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 text-left space-y-4">
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-600">Isi Identitas Murid Sebelum Mulai:</h3>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap Murid *</label>
+                            <input type="text" id="student-name" placeholder="Contoh: Rian Pratama" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-500 text-xs font-semibold text-slate-800">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Kelas *</label>
+                            <select id="student-class" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-500 text-xs font-semibold text-slate-800">
+                                <option value="VII A">Kelas VII A</option>
+                                <option value="VII B">Kelas VII B</option>
+                                <option value="VII C">Kelas VII C</option>
+                                <option value="VII D">Kelas VII D</option>
+                                <option value="VII E">Kelas VII E</option>
+                                <option value="VII F">Kelas VII F</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 text-xs text-slate-600 bg-emerald-50 p-3.5 rounded-2xl border border-emerald-100">
+                    <div><i class="fa-solid fa-list-ol text-emerald-600 mr-1"></i> 15 Soal AKM</div>
+                    <div><i class="fa-solid fa-clock text-amber-600 mr-1"></i> Timer 20 Min</div>
+                    <div><i class="fa-solid fa-shuffle text-teal-600 mr-1"></i> Soal Acak</div>
+                </div>
+
+                <button onclick="validateAndStartAsesmen()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm rounded-2xl shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i> Mulai Kerjakan Asesmen Formatif
+                </button>
+            </div>
+
+            <!-- SCREEN 2: QUIZ ACTIVE SCREEN -->
+            <div id="asesmen-quiz-screen" class="hidden space-y-6">
+                <!-- Quiz Header Bar -->
+                <div class="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <span id="quiz-question-number" class="text-xs font-black text-emerald-600 uppercase tracking-wider">Soal 1 dari 15</span>
+                        <div class="w-48 bg-slate-100 h-2 rounded-full overflow-hidden mt-1.5">
+                            <div id="quiz-progress-bar" class="bg-emerald-600 h-full w-10 transition-all duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="bg-amber-50 border border-amber-200 px-3.5 py-1.5 rounded-xl flex items-center gap-2 text-amber-800 font-bold text-xs sm:text-sm">
+                            <i class="fa-solid fa-stopwatch text-amber-600"></i>
+                            <span id="quiz-timer">20:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Card Container -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
+                    <!-- Text Box untuk Bacaan/Soal AKM -->
+                    <div id="quiz-stimulus-box" class="bg-slate-50 p-4 sm:p-5 rounded-2xl border-l-4 border-emerald-500 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <h3 id="quiz-question-text" class="text-base sm:text-lg font-bold text-slate-800 leading-snug">
+                        <!-- Dynamic Question Text -->
+                    </h3>
+
+                    <!-- Options Container -->
+                    <div id="quiz-options-container" class="space-y-3">
+                        <!-- Dynamic Option Buttons -->
+                    </div>
+
+                    <!-- Navigation Next / Prev Button -->
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                        <button id="btn-prev-question" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold text-xs transition-all flex items-center gap-2 disabled:opacity-40">
+                            <i class="fa-solid fa-arrow-left"></i> Sebelumnya
+                        </button>
+
+                        <button id="btn-next-question" onclick="nextQuestion()" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-all shadow-md flex items-center gap-2">
+                            Berikutnya <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCREEN 3: RESULT SCREEN + REPORT TO BU RIRIN + PEMBAHASAN -->
+            <div id="asesmen-result-screen" class="hidden space-y-6">
+                <!-- Result Score Summary Banner -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md text-center space-y-6">
+                    <div id="result-icon-container" class="w-20 h-20 rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <div>
+                        <h2 id="result-title" class="text-2xl font-black text-slate-800">Hasil Asesmen Formatif</h2>
+                        <p id="result-student-info" class="text-slate-500 text-xs sm:text-sm mt-1">Nama: - | Kelas: -</p>
+                    </div>
+
+                    <!-- Score Cards -->
+                    <div class="grid grid-cols-3 gap-3 max-w-md mx-auto">
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-center">
+                            <span class="text-[11px] text-slate-500 block">Nilai Akhir</span>
+                            <span id="result-score" class="text-2xl font-black text-emerald-600">0</span>
+                        </div>
+                        <div class="bg-emerald-50 p-3.5 rounded-2xl border border-emerald-200 text-center">
+                            <span class="text-[11px] text-emerald-600 block">Benar</span>
+                            <span id="result-correct" class="text-2xl font-black text-emerald-600">0</span>
+                        </div>
+                        <div class="bg-rose-50 p-3.5 rounded-2xl border border-rose-200 text-center">
+                            <span class="text-[11px] text-rose-600 block">Salah</span>
+                            <span id="result-wrong" class="text-2xl font-black text-rose-600">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Bu Ririn Feedback Note -->
+                    <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex items-start gap-3 text-left max-w-xl mx-auto">
+                        <div class="w-10 h-10 rounded-full bg-emerald-200 shrink-0 flex items-center justify-center text-emerald-700 font-bold text-lg">
+                            👩‍🏫
+                        </div>
+                        <div>
+                            <span class="font-bold text-xs text-emerald-900 block">Ulasan Bu Ririn:</span>
+                            <p id="result-feedback-text" class="text-xs text-emerald-800 leading-relaxed mt-0.5">
+                                Kerjaan yang bagus!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= AUTOMATIC REPORT TO BU RIRIN LINK (SEBELUM PEMBAHASAN) ================= -->
+                <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 rounded-3xl p-6 sm:p-8 text-white shadow-xl space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-paper-plane text-amber-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-black text-lg">Laporkan Hasil Asesmen Formatif ke Bu Ririn</h3>
+                            <p class="text-emerald-100 text-xs sm:text-sm">Klik tombol di bawah untuk melaporkan nama, kelas, dan nilai yang diperoleh secara otomatis!</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-xs space-y-2">
+                        <div class="font-bold text-amber-300">Preview Pesan Laporan:</div>
+                        <div id="report-text-preview" class="font-mono bg-black/20 p-3 rounded-xl text-emerald-100 select-all leading-relaxed whitespace-pre-wrap">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <button onclick="sendReportWhatsApp()" class="flex-1 py-3.5 px-6 bg-emerald-400 hover:bg-emerald-300 text-slate-900 font-extrabold rounded-2xl text-xs shadow-lg transition-all flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Kirim Laporan via WhatsApp
+                        </button>
+                        <button onclick="copyReportText()" class="py-3.5 px-6 bg-white/20 hover:bg-white/30 text-white font-bold rounded-2xl text-xs border border-white/30 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-copy"></i> Salin Teks Laporan
+                        </button>
+                        <button onclick="resetAsesmenToStart()" class="py-3.5 px-6 bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold rounded-2xl text-xs shadow-lg transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i> Ulangi Asesmen Formatif
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pembahasan Soal Asesmen Formatif -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3 flex-wrap gap-2">
+                        <h3 class="text-lg font-black text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-book-bookmark text-emerald-600"></i> Pembahasan Lengkap Soal AKM
+                        </h3>
+                        <button onclick="resetAsesmenToStart()" class="px-4 py-2 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 font-extrabold rounded-xl text-xs transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-rotate-right"></i> Coba Latihan Lagi
+                        </button>
+                    </div>
+
+                    <div id="discussion-list" class="space-y-6">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <p>© PEMANFAATAN DAN PELESTARIAN SUMBER DAYA - IPS Kelas VII SMP Negeri 1 Wadaslintang | Bimbingan Bu Ririn</p>
+    </footer>
+
+    <script>
+        let audioEnabled = true;
+        let audioCtx = null;
+        let currentStudent = { name: '', class: '' };
+
+        // Audio System (Synthesized via Web Audio API)
+        function playSound(type) {
+            if (!audioEnabled) return;
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+                if (type === 'click') {
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                } else if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.1);
+                    osc.frequency.setValueAtTime(783.99, now + 0.2);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(200, now);
+                    osc.frequency.setValueAtTime(150, now + 0.1);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                }
+            } catch (e) {
+                console.log('Audio error:', e);
+            }
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const btn = document.getElementById('audio-toggle');
+            if (audioEnabled) {
+                btn.innerHTML = '<i class="fa-solid fa-volume-high text-emerald-600"></i>';
+                btn.title = "Suara ON";
+            } else {
+                btn.innerHTML = '<i class="fa-solid fa-volume-xmark text-slate-400"></i>';
+                btn.title = "Suara OFF";
+            }
+        }
+
+        function navigateTo(viewId) {
+            playSound('click');
+            const views = ['landing', 'menu', 'tujuan', 'materi', 'game', 'asesmen'];
+            views.forEach(v => {
+                const el = document.getElementById('view-' + v);
+                if (el) el.classList.add('hidden');
+            });
+
+            const target = document.getElementById('view-' + viewId);
+            if (target) target.classList.remove('hidden');
+
+            const locTag = document.getElementById('current-location-tag');
+            const mainMenuBtn = document.getElementById('btn-main-menu');
+            
+            const titles = {
+                'landing': 'Halaman Utama',
+                'menu': 'Menu Utama',
+                'tujuan': 'Tujuan Pembelajaran',
+                'materi': 'Materi Pembelajaran',
+                'game': 'Game Interaktif',
+                'asesmen': 'Asesmen Formatif'
+            };
+
+            if (locTag) locTag.textContent = titles[viewId] || 'Halaman Utama';
+
+            if (mainMenuBtn) {
+                if (viewId === 'landing' || viewId === 'menu') {
+                    mainMenuBtn.classList.add('hidden');
+                } else {
+                    mainMenuBtn.classList.remove('hidden');
+                }
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchMateriTab(tabName) {
+            playSound('click');
+            const tabs = ['pemanfaatan', 'ancaman', 'pelestarian'];
+            tabs.forEach(t => {
+                const content = document.getElementById('materi-' + t);
+                const btn = document.getElementById('subtab-' + t);
+                if (content) content.classList.add('hidden');
+                if (btn) {
+                    btn.className = "flex-1 md:flex-none px-4 py-2 rounded-xl text-xs font-bold text-slate-600 transition-all";
+                }
+            });
+
+            const activeContent = document.getElementById('materi-' + tabName);
+            const activeBtn = document.getElementById('subtab-' + tabName);
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeBtn) {
+                activeBtn.className = "flex-1 md:flex-none px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-sm transition-all";
+            }
+        }
+
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        const defaultGameItems = [
+            { id: 'item1', title: 'Air & Sinar Matahari', category: 'diperbarui', icon: 'fa-sun' },
+            { id: 'item2', title: 'Minyak Bumi & Batu Bara', category: 'tidak_diperbarui', icon: 'fa-gas-pump' },
+            { id: 'item3', title: 'Reboisasi & Terasering', category: 'pelestarian', icon: 'fa-tree' },
+            { id: 'item4', title: 'Hutan & Hasil Pertanian', category: 'diperbarui', icon: 'fa-seedling' },
+            { id: 'item5', title: 'Gas Alam & Bijih Besi', category: 'tidak_diperbarui', icon: 'fa-cubes' },
+            { id: 'item6', title: 'Prinsip 3R & Biopori', category: 'pelestarian', icon: 'fa-recycle' }
+        ];
+
+        let currentPoolItems = [];
+        let currentGameScore = 0;
+        let draggedItemId = null;
+        let selectedGameItem = null;
+
+        function initGame() {
+            currentGameScore = 0;
+            const scoreTag = document.getElementById('game-score');
+            if (scoreTag) scoreTag.textContent = currentGameScore;
+            
+            currentPoolItems = shuffleArray([...defaultGameItems]);
+
+            ['zone-diperbarui', 'zone-tidak_diperbarui', 'zone-pelestarian'].forEach(zId => {
+                const zone = document.getElementById(zId);
+                if (zone) {
+                    const container = zone.querySelector('.drop-contents');
+                    if (container) container.innerHTML = '';
+                }
+            });
+
+            renderGamePool();
+        }
+
+        function resetGame() {
+            playSound('click');
+            initGame();
+        }
+
+        function renderGamePool() {
+            const pool = document.getElementById('item-pool');
+            const countTag = document.getElementById('items-left-count');
+            if (!pool) return;
+
+            pool.innerHTML = '';
+            if (countTag) countTag.textContent = `Sisa: ${currentPoolItems.length} Item`;
+
+            if (currentPoolItems.length === 0) {
+                pool.innerHTML = `
+                    <div class="text-center py-3 text-emerald-700 font-extrabold text-xs">
+                        🎉 Selamat! Semua kartu berhasil disortir dengan tepat!
+                    </div>
+                `;
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+                }
+                playSound('correct');
+                return;
+            }
+
+            currentPoolItems.forEach(item => {
+                const card = document.createElement('div');
+                card.id = item.id;
+                card.draggable = true;
+                const isSelected = selectedGameItem && selectedGameItem.id === item.id;
+                
+                card.className = `p-3 rounded-xl bg-white border-2 ${isSelected ? 'border-amber-500 shadow-md ring-2 ring-amber-300' : 'border-slate-200 hover:border-emerald-400'} shadow-sm cursor-grab active:cursor-grabbing text-xs font-extrabold text-slate-700 flex items-center gap-2 transition-all select-none`;
+
+                card.innerHTML = `
+                    <i class="fa-solid ${item.icon} text-emerald-600"></i>
+                    <span>${item.title}</span>
+                `;
+
+                card.ondragstart = (e) => {
+                    draggedItemId = item.id;
+                    e.dataTransfer.setData('text/plain', item.id);
+                };
+
+                card.onclick = () => {
+                    playSound('click');
+                    if (selectedGameItem && selectedGameItem.id === item.id) {
+                        selectedGameItem = null;
+                    } else {
+                        selectedGameItem = item;
+                    }
+                    renderGamePool();
+                };
+
+                pool.appendChild(card);
+            });
+        }
+
+        function allowDrop(e) {
+            e.preventDefault();
+        }
+
+        function handleDrop(e, targetCategory) {
+            e.preventDefault();
+            const itemId = e.dataTransfer ? e.dataTransfer.getData('text/plain') : (selectedGameItem ? selectedGameItem.id : null);
+            if (!itemId) return;
+
+            processGamePlacement(itemId, targetCategory);
+        }
+
+        function processGamePlacement(itemId, targetCategory) {
+            const itemIndex = currentPoolItems.findIndex(i => i.id === itemId);
+            if (itemIndex === -1) return;
+
+            const item = currentPoolItems[itemIndex];
+
+            if (item.category === targetCategory) {
+                playSound('correct');
+                currentGameScore += 20;
+                const scoreTag = document.getElementById('game-score');
+                if (scoreTag) scoreTag.textContent = currentGameScore;
+
+                currentPoolItems.splice(itemIndex, 1);
+                selectedGameItem = null;
+
+                const zone = document.getElementById('zone-' + targetCategory);
+                if (zone) {
+                    const container = zone.querySelector('.drop-contents');
+                    const card = document.createElement('div');
+                    card.className = "p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-extrabold text-emerald-900 flex items-center justify-between shadow-xs animate-fadeIn";
+                    card.innerHTML = `
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid ${item.icon} text-emerald-600"></i>
+                            <span>${item.title}</span>
+                        </div>
+                        <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                    `;
+                    container.appendChild(card);
+                }
+
+                renderGamePool();
+            } else {
+                playSound('wrong');
+                alert(`Kurang tepat! "${item.title}" bukan bagian dari kategori tersebut. Coba lagi ya!`);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ['diperbarui', 'tidak_diperbarui', 'pelestarian'].forEach(cat => {
+                const zone = document.getElementById('zone-' + cat);
+                if (zone) {
+                    zone.onclick = (e) => {
+                        if (selectedGameItem && !e.target.closest('.drop-contents > div')) {
+                            processGamePlacement(selectedGameItem.id, cat);
+                        }
+                    };
+                }
+            });
+        });
+
+        function validateAndStartAsesmen() {
+            const nameInput = document.getElementById('student-name');
+            const classInput = document.getElementById('student-class');
+
+            const name = nameInput ? nameInput.value.trim() : '';
+            const studentClass = classInput ? classInput.value : '';
+
+            if (!name) {
+                alert("Silakan isi Nama Lengkap Murid terlebih dahulu!");
+                if (nameInput) nameInput.focus();
+                return;
+            }
+
+            currentStudent = { name, class: studentClass };
+            startAsesmen();
+        }
+
+        function startTimer() {
+            if (quizTimer) clearInterval(quizTimer);
+            
+            quizTimer = setInterval(() => {
+                timeLeft--;
+                const mins = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+                const timerEl = document.getElementById('quiz-timer');
+                if (timerEl) {
+                    timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(quizTimer);
+                    alert("Waktu pengerjaan telah habis!");
+                    finishAsesmen();
+                }
+            }, 1000);
+        }
+
+        function selectOption(optIdx) {
+            playSound('click');
+            userAnswers[currentQIdx] = optIdx;
+            renderQuestion();
+        }
+
+        function prevQuestion() {
+            playSound('click');
+            if (currentQIdx > 0) {
+                currentQIdx--;
+                renderQuestion();
+            }
+        }
+
+        const bankSoalAKM = [
+            {
+                stimulus: "Waduk Wadaslintang dibangun dengan membendung sungai untuk menampung jutaan meter kubik air. Selain difungsikan sebagai Pembangkit Listrik Tenaga Air (PLTA), waduk ini mengairi ribuan hektar sawah dan tempat pembudidayaan ikan jaring apung.",
+                question: "Pemanfaatan Waduk Wadaslintang sebagai sarana pengairan sawah dan pembudidayaan ikan tergolong pemanfaatan sumber daya alam...",
+                options: ["Air yang dapat diperbarui", "Tambang yang tidak dapat diperbarui", "Fosil yang bernilai terbatas", "Mineral sintetis buatan"],
+                answer: 0,
+                explanation: "Air merupakan Sumber Daya Alam yang dapat diperbarui melalui siklus hidrologi, dimanfaatkan untuk irigasi dan perikanan."
+            },
+            {
+                stimulus: "Aktivitas pembalakan liar (illegal logging) di daerah perbukitan menyebabkan pohon-pohon penyerap air hilang. Saat musim hujan lebat tiba, air hujan mengalir langsung ke pemukiman membawa lumpur dan memicu tanah longsor.",
+                question: "Dampak utama penggundulan hutan bagi kesetimbangan lingkungan di daerah resapan air adalah...",
+                options: [
+                    "Menambah kesuburan tanah secara permanen",
+                    "Menurunkan daya serap tanah sehingga memicu erosi dan banjir",
+                    "Mempercepat proses pembentukan batu bara",
+                    "Meningkatkan pasokan oksigen alami"
+                ],
+                answer: 1,
+                explanation: "Akar pohon berfungsi mengikat tanah dan menyerap air hujan. Hilangnya pohon menurunkan kemampuan tanah menyerap air sehingga memicu erosi dan banjir."
+            },
+            {
+                stimulus: "Petani di kawasan perbukitan Wadaslintang membuat sengkedan atau terasering pada lahan pertanian bertingkat-tingkat di lereng gunung.",
+                question: "Tujuan utama pembuatan sistem terasering pada lahan miring adalah...",
+                options: [
+                    "Mempermudah traktor masuk ke ladang",
+                    "Memperluas lahan industri tambang",
+                    "Menahan laju aliran air hujan guna mencegah erosi tanah",
+                    "Mengurangi kebutuhan pupuk organik"
+                ],
+                answer: 2,
+                explanation: "Terasering memotong curamnya lereng menjadi bertangga-tangga sehingga memperlambat aliran air permukaan dan mencegah erosi."
+            },
+            {
+                stimulus: "Minyak bumi dan batu bara hingga saat ini masih banyak digunakan sebagai bahan bakar kendaraan dan pembangkit listrik. Namun jumlah cadangan minyak bumi di dalam bumi semakin menipis dari tahun ke tahun.",
+                question: "Penyebab utama minyak bumi tergolong Sumber Daya Alam tidak dapat diperbarui adalah...",
+                options: [
+                    "Mudah larut saat terkena air hujan",
+                    "Hanya bisa didapatkan di dasar lautan terumbu karang",
+                    "Dapat diproduksi dalam waktu singkat di laboratorium",
+                    "Membutuhkan waktu jutaan tahun untuk terbentuk kembali secara alami"
+                ],
+                answer: 3,
+                explanation: "Minyak bumi terbentuk dari fosil sisa organisme ribuan hingga jutaan tahun lalu, sehingga jika habis tidak dapat diperbarui dalam waktu singkat."
+            },
+            {
+                stimulus: "Siswa SMP Negeri 1 Wadaslintang mengumpulkan botol plastik bekas minuman di sekolah, lalu mengubahnya menjadi pot tanaman hias dan tempat pensil di kelas.",
+                question: "Tindakan mendaur ulang atau memanfaatkan kembali botol plastik bekas tersebut mencerminkan penerapan prinsip pelestarian...",
+                options: ["Reuse dan Recycle (Guna Ulang & Daur Ulang)", "Eksploitasi SDA Berlebihan", "Deforestasi Hutan Lindung", "Konsumsi Tanpa Batas"],
+                answer: 0,
+                explanation: "Memanfaatkan kembali sampah plastik menjadi barang berguna merupakan wujud aksi nyata Prinsip 3R (Reuse & Recycle)."
+            },
+            {
+                stimulus: "Sebuah perusahaan kayu menebang pohon secara teratur dengan sistem tebang pilih (hanya memotong pohon yang sudah tua) dan wajib menanam 5 bibit pohon baru untuk setiap 1 pohon yang ditebang.",
+                question: "Praktik tebang pilih dan penanaman kembali (reboisasi) merupakan contoh penerapan prinsip...",
+                options: [
+                    "Eksploitasi Maksimal Bebas Biaya",
+                    "Pembangunan Berkelanjutan (Sustainable Development)",
+                    "Monopoli Sumber Daya Alam",
+                    "Penghentian Total Seluruh Industri"
+                ],
+                answer: 1,
+                explanation: "Pembangunan berkelanjutan memanfaatkan alam untuk masa kini sambil menjaga keberlangsungannya untuk masa depan lewat reboisasi."
+            },
+            {
+                stimulus: "Masyarakat di sepanjang aliran sungai sering membuang sampah sisa makanan dan detergen langsung ke sungai. Akibatnya air sungai menjadi berbau, keruh, dan populasi ikan lokal berkurang pesat.",
+                question: "Upaya paling tepat yang harus dilakukan warga untuk mengatasi pencemaran air sungai tersebut adalah...",
+                options: [
+                    "Menutup sungai dengan terpal plastik",
+                    "Mengalirkan air sungai langsung ke dalam rumah",
+                    "Membuat Sarana Pengolahan Air Limbah (SPAL) dan tidak membuang sampah ke sungai",
+                    "Menangkap semua ikan yang tersisa agar tidak mati"
+                ],
+                answer: 2,
+                explanation: "Edukasi tidak membuang sampah sembarangan serta pengolahan limbah cair rumah tangga adalah solusi utama menjaga kelestarian air sungai."
+            },
+            {
+                stimulus: "Pemerintah mulai mengembangkan Pembangkit Listrik Tenaga Surya (PLTS) dan Angin sebagai alternatif pengganti Pembangkit Listrik Batu Bara yang menghasilkan polusi asap tinggi.",
+                question: "Keunggulan utama pemanfaatan energi surya dan angin dibandingkan batu bara adalah...",
+                options: [
+                    "Menghasilkan limbah beracun yang lebih banyak",
+                    "Hanya bisa dipakai saat malam hari",
+                    "Membutuhkan bahan bakar fosil tambahan",
+                    "Ramah lingkungan dan sumber energinya tidak akan habis"
+                ],
+                answer: 3,
+                explanation: "Matahari dan angin merupakan SDA terbarukan yang tidak memancarkan polusi berbahaya serta ketersediaannya melimpah."
+            },
+            {
+                stimulus: "Di halaman sekolah SMP Negeri 1 Wadaslintang, para murid bersama Bu Ririn membuat lubang-lubang silindris tegak lurus ke dalam tanah yang diisi sampah organik.",
+                question: "Fungsi utama pembuatan lubang resapan biopori di area sekolah adalah...",
+                options: [
+                    "Meningkatkan daya resapan air hujan ke tanah dan mencegah genangan",
+                    "Menyimpan bahan bakar minyak bumi",
+                    "Menghancurkan struktur tanah ladang",
+                    "Sebagai tempat penambangan emas"
+                ],
+                answer: 0,
+                explanation: "Lubang resapan biopori mempercepat penyerapan air hujan ke dalam tanah, mencegah banjir, dan menjaga cadangan air tanah."
+            },
+            {
+                stimulus: "Kebutuhan kayu untuk bahan bangunan terus bertambah seiring bertambahnya jumlah penduduk, namun hutan kayu membutuhkan waktu puluhan tahun untuk tumbuh kembali.",
+                question: "Sikap bijak konsumen untuk mengantisipasi kelangkaan kayu bangunan adalah...",
+                options: [
+                    "Menebang seluruh hutan lindung tanpa izin",
+                    "Menggunakan bahan pengganti alternatif ramah lingkungan seperti baja ringan atau bambu",
+                    "Membakar hutan agar lahan cepat bersih",
+                    "Membeli kayu dalam jumlah sebanyak-banyaknya untuk ditimbun"
+                ],
+                answer: 1,
+                explanation: "Menggunakan bahan substitusi (pengganti) ramah lingkungan seperti baja ringan atau bambu dapat mengurangi tekanan pengerukan kayu hutan."
+            },
+            {
+                stimulus: "Kawasan pesisir pantai sering mengalami abrasi karena terpaan gelombang laut. Masyarakat sekitar bersama pemerintah setempat melakukan penanaman hutan bakau (mangrove) sepanjang garis pantai.",
+                question: "Manfaat utama penanaman hutan mangrove bagi kelestarian lingkungan pesisir adalah...",
+                options: [
+                    "Mempercepat terjadinya gelombang tsunami",
+                    "Mengeringkan air laut menjadi daratan",
+                    "Mencegah erosi pantai (abrasi) serta menyediakan tempat berkembang biak biota laut",
+                    "Menghilangkan kandungan garam pada air laut"
+                ],
+                answer: 2,
+                explanation: "Hutan mangrove berfungsi menahan gempuran gelombang laut penyebab abrasi sekaligus menjadi habitat terlindung bagi benih ikan dan kepiting."
+            },
+            {
+                stimulus: "Penggunaan pupuk buatan dan pestisida kimia berlebihan pada lahan pertanian dalam jangka panjang dapat merusak struktur tanah dan mematikan organisme pengurai tanah seperti cacing.",
+                question: "Langkah pelestarian tanah yang paling ramah lingkungan untuk menggantikan pestisida kimia adalah...",
+                options: [
+                    "Membakar tanah setelah panen selesai",
+                    "Menyiram tanah dengan minyak tanah",
+                    "Membiarkan lahan tergenang air sisa limbah pabrik",
+                    "Beralih ke pupuk kompos organik dan pestisida alami berbasis tanaman"
+                ],
+                answer: 3,
+                explanation: "Pupuk kompos dan pestisida hayati/alami menjaga organisme penyubur tanah tetap hidup dan tidak meracuni ekosistem tanah."
+            },
+            {
+                stimulus: "Beberapa hewan endemik Indonesia seperti Harimau Sumatra dan Orangutan semakin terancam punah karena perburuan liar serta penyempitan wilayah hutan habitat aslinya.",
+                question: "Upaya pelestarian fauna langka yang dilakukan dengan melindungi habitat asli hewan tersebut dinamakan...",
+                options: [
+                    "Pelestarian In-situ (seperti Suaka Margasatwa dan Taman Nasional)",
+                    "Peternakan Komersial Masal",
+                    "Pelestarian Eks-situ di Pasar Hewan",
+                    "Sistem Perburuan Terbuka"
+                ],
+                answer: 0,
+                explanation: "Pelestarian in-situ adalah perlindungan flora/fauna yang dilakukan di dalam habitat aslinya seperti di Taman Nasional atau Suaka Margasatwa."
+            },
+            {
+                stimulus: "Pabrik tekstil yang membuang limbah cairnya langsung ke sungai tanpa diolah terlebih dahulu menyebabkan zat kimia berbahaya mencemari sumber air warga.",
+                question: "Solusi wajib yang harus diterapkan oleh pihak pabrik agar air sungai tidak tercemar adalah...",
+                options: [
+                    "Membuang limbah cair saat malam hari agar tidak kelihatan",
+                    "Membangun Instalasi Pengolahan Air Limbah (IPAL) sebelum dibuang ke perairan",
+                    "Menyedot air sungai ke dalam waduk",
+                    "Mengganti warna limbah menjadi bening menggunakan zat pewarna"
+                ],
+                answer: 1,
+                explanation: "IPAL berfungsi menyaring dan menetralisir racun serta zat kimia berbahaya dari limbah pabrik sebelum dialirkan ke lingkungan."
+            },
+            {
+                stimulus: "Pembangkit listrik sebagian besar masih menggunakan pembakaran batu bara yang memicu pemanasan global. Setiap keluarga diajak mematikan lampu dan alat elektronik yang tidak digunakan.",
+                question: "Sikap hemat energi listrik di lingkungan rumah berdampak positif terhadap pelestarian alam karena...",
+                options: [
+                    "Membuat cadangan minyak bumi meningkat secara drastis",
+                    "Mempercepat proses terjadinya hujan asam",
+                    "Mengurangi konsumsi bahan bakar fosil batu bara dan menekan emisi karbon",
+                    "Menghilangkan kebutuhan akan energi matahari"
+                ],
+                answer: 2,
+                explanation: "Menghemat penggunaan listrik secara langsung menghemat pembakaran batu bara di pembangkit listrik sehingga menurunkan polusi karbon di udara."
+            }
+        ];
+
+        /* Asesmen State */
+        let activeQuestions = [];
+        let currentQIdx = 0;
+        let userAnswers = [];
+        let quizTimer = null;
+        let timeLeft = 1200;
+
+        function startAsesmen() {
+            playSound('click');
+            
+            /* Menyiapkan distribusi kunci jawaban seimbang untuk 15 soal: 4 A, 4 B, 4 C, 3 D */
+            const targetAnswerPositions = shuffleArray([0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3]);
+
+            const shuffledBank = shuffleArray(bankSoalAKM).slice(0, 15);
+
+            activeQuestions = shuffledBank.map((q, idx) => {
+                const targetIdx = targetAnswerPositions[idx];
+                const correctText = q.options[q.answer];
+                const wrongOptions = shuffleArray(q.options.filter((_, oIdx) => oIdx !== q.answer));
+
+                const finalOptions = [];
+                let wrongPtr = 0;
+                for (let i = 0; i < 4; i++) {
+                    if (i === targetIdx) {
+                        finalOptions.push(correctText);
+                    } else {
+                        finalOptions.push(wrongOptions[wrongPtr++]);
+                    }
+                }
+
+                return {
+                    stimulus: q.stimulus,
+                    question: q.question,
+                    options: finalOptions,
+                    answer: targetIdx,
+                    explanation: q.explanation
+                };
+            });
+
+            currentQIdx = 0;
+            userAnswers = new Array(15).fill(null);
+            timeLeft = 1200;
+
+            document.getElementById('asesmen-start-screen').classList.add('hidden');
+            document.getElementById('asesmen-result-screen').classList.add('hidden');
+            document.getElementById('asesmen-quiz-screen').classList.remove('hidden');
+
+            startTimer();
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = activeQuestions[currentQIdx];
+            document.getElementById('quiz-question-number').textContent = `Soal ${currentQIdx + 1} dari 15`;
+            document.getElementById('quiz-stimulus-box').innerHTML = q.stimulus;
+            document.getElementById('quiz-question-text').textContent = q.question;
+
+            const progress = ((currentQIdx + 1) / 15) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progress}%`;
+
+            const container = document.getElementById('quiz-options-container');
+            container.innerHTML = '';
+
+            const prefixes = ['A', 'B', 'C', 'D'];
+
+            q.options.forEach((optText, idx) => {
+                const isSelected = userAnswers[currentQIdx] === idx;
+                const btn = document.createElement('button');
+                btn.onclick = () => selectOption(idx);
+                btn.className = `w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center gap-3 text-xs sm:text-sm font-semibold ${
+                    isSelected 
+                    ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-sm' 
+                    : 'border-slate-200 bg-white hover:border-slate-300 text-slate-700'
+                }`;
+
+                btn.innerHTML = `
+                    <span class="w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 ${
+                        isSelected ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600'
+                    }">${prefixes[idx]}</span>
+                    <span class="flex-grow">${optText}</span>
+                `;
+                container.appendChild(btn);
+            });
+
+            document.getElementById('btn-prev-question').disabled = currentQIdx === 0;
+
+            const nextBtn = document.getElementById('btn-next-question');
+            if (currentQIdx === 14) {
+                nextBtn.innerHTML = 'Selesai & Kirim <i class="fa-solid fa-paper-plane ml-1"></i>';
+                nextBtn.className = "px-6 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs transition-all shadow-md flex items-center gap-2";
+            } else {
+                nextBtn.innerHTML = 'Berikutnya <i class="fa-solid fa-arrow-right"></i>';
+                nextBtn.className = "px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-all shadow-md flex items-center gap-2";
+            }
+        }
+
+        function nextQuestion() {
+            playSound('click');
+            if (currentQIdx < 14) {
+                currentQIdx++;
+                renderQuestion();
+            } else {
+                finishAsesmen();
+            }
+        }
+
+        function finishAsesmen() {
+            if (quizTimer) clearInterval(quizTimer);
+
+            let correctCount = 0;
+            activeQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.answer) {
+                    correctCount++;
+                }
+            });
+
+            const wrongCount = 15 - correctCount;
+            const finalScore = Math.round((correctCount / 15) * 100);
+
+            document.getElementById('result-student-info').textContent = `Nama: ${currentStudent.name} | Kelas: ${currentStudent.class} | SMP Negeri 1 Wadaslintang`;
+            document.getElementById('result-score').textContent = finalScore;
+            document.getElementById('result-correct').textContent = correctCount;
+            document.getElementById('result-wrong').textContent = wrongCount;
+
+            const iconBox = document.getElementById('result-icon-container');
+            const feedbackText = document.getElementById('result-feedback-text');
+
+            if (finalScore >= 80) {
+                playSound('correct');
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                }
+                iconBox.className = "w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto shadow-inner";
+                iconBox.innerHTML = '<i class="fa-solid fa-trophy"></i>';
+                feedbackText.textContent = `"Luar biasa, ${currentStudent.name}! Nilai Asesmen Formatifmu (${finalScore}) sangat hebat. Kamu sudah paham betul cara memanfaatkan dan melestarikan sumber daya alam!"`;
+            } else if (finalScore >= 60) {
+                playSound('correct');
+                iconBox.className = "w-20 h-20 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-3xl mx-auto shadow-inner";
+                iconBox.innerHTML = '<i class="fa-solid fa-thumbs-up"></i>';
+                feedbackText.textContent = `"Bagus sekali, ${currentStudent.name}! Nilaimu (${finalScore}) tuntas. Pelajari pembahasan di bawah agar pemahamanmu makin mantap!"`;
+            } else {
+                playSound('wrong');
+                iconBox.className = "w-20 h-20 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-3xl mx-auto shadow-inner";
+                iconBox.innerHTML = '<i class="fa-solid fa-book-open-reader"></i>';
+                feedbackText.textContent = `"Tetap semangat, ${currentStudent.name}! Nilaimu (${finalScore}). Yuk, baca kembali materi di atas dan cermati pembahasan di bawah ini ya!"`;
+            }
+
+            const reportMessage = 
+`ASSALAMU'ALAIKUM BU RIRIN, SAYA LAPORKAN HASIL ASESMEN FORMATIF IPS:
+
+👤 Nama: ${currentStudent.name}
+🏫 Kelas: ${currentStudent.class}
+🏫 Sekolah: SMP Negeri 1 Wadaslintang
+📚 Materi: Pemanfaatan dan Pelestarian Sumber Daya Alam (IPS VII)
+📊 Nilai Asesmen Formatif: ${finalScore} / 100
+✅ Jawaban Benar: ${correctCount} dari 15 Soal
+❌ Jawaban Salah: ${wrongCount} Soal
+
+Terima kasih Bu Ririn!`;
+
+            document.getElementById('report-text-preview').textContent = reportMessage;
+
+            const discList = document.getElementById('discussion-list');
+            discList.innerHTML = '';
+            const prefixes = ['A', 'B', 'C', 'D'];
+
+            activeQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.answer;
+
+                const card = document.createElement('div');
+                card.className = `p-5 rounded-2xl border ${isCorrect ? 'bg-emerald-50/40 border-emerald-200' : 'bg-rose-50/40 border-rose-200'} space-y-3`;
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="font-black text-xs px-2.5 py-1 rounded-full ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                            Soal #${idx + 1} - ${isCorrect ? 'BENAR' : 'SALAH'}
+                        </span>
+                    </div>
+                    <div class="text-xs text-slate-500">${q.stimulus}</div>
+                    <p class="text-xs sm:text-sm font-bold text-slate-800">${q.question}</p>
+                    <div class="text-xs space-y-1 text-slate-600">
+                        <div>Jawaban Kamu: <strong class="${isCorrect ? 'text-emerald-700' : 'text-rose-700'}">${userAns !== null ? prefixes[userAns] + '. ' + q.options[userAns] : 'Tidak Dijawab'}</strong></div>
+                        <div>Jawaban Benar: <strong class="text-emerald-700">${prefixes[q.answer]}. ${q.options[q.answer]}</strong></div>
+                    </div>
+                    <div class="bg-white p-3.5 rounded-xl border border-slate-200 text-xs text-slate-600">
+                        <strong>💡 Pembahasan Bu Ririn:</strong> ${q.explanation}
+                    </div>
+                `;
+                discList.appendChild(card);
+            });
+
+            document.getElementById('asesmen-quiz-screen').classList.add('hidden');
+            document.getElementById('asesmen-result-screen').classList.remove('hidden');
+        }
+
+        function sendReportWhatsApp() {
+            playSound('click');
+            const message = document.getElementById('report-text-preview').textContent;
+            const encoded = encodeURIComponent(message);
+            window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
+        }
+
+        function copyReportText() {
+            playSound('click');
+            const text = document.getElementById('report-text-preview').textContent;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            alert("Teks Laporan berhasil disalin! Anda bisa langsung menempelkannya (paste) di percakapan WhatsApp Bu Ririn.");
+        }
+
+        function resetAsesmenToStart() {
+            playSound('click');
+            if (quizTimer) clearInterval(quizTimer);
+            document.getElementById('asesmen-result-screen').classList.add('hidden');
+            document.getElementById('asesmen-quiz-screen').classList.add('hidden');
+            document.getElementById('asesmen-start-screen').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Initializing App */
+        window.onload = function() {
+            initGame();
+            navigateTo('landing');
+        };
+    </script>
+</body>
+</html>
